@@ -11,8 +11,49 @@
     <noscript
       ><link rel="stylesheet" href="assets/css/noscript.css"
     /></noscript>
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 999;
+      }
+
+      .modal-content {
+        background-color: #28282b;
+        text-align: center;
+        padding: 20px;
+        width: 300px;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      #custom-alert-ok {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body class="is-preload landing">
+    <!-- Custum alert -->
+    <div id="custom-alert" class="modal">
+      <div class="modal-content">
+        <p id="custom-alert-message"></p>
+        <button id="custom-alert-ok">OK</button>
+      </div>
+    </div>
+
     <div id="page-wrapper">
       <!-- Header -->
       <header id="header">
@@ -209,14 +250,11 @@
           <footer class="major">
             <ul class="actions special">
               <li>
-                <a
-                  href="assets/HonnarajuResume_git.pdf"
-                  download="honnaraju_Resume.pdf"
-                  class="button"
-                >
+                <a onclick="downloadResume()" id="resume-link" class="button">
                   Download My Resume
                 </a>
               </li>
+              <li><p id="download-status"></p></li>
             </ul>
           </footer>
         </div>
@@ -266,5 +304,49 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+      function customAlert(message) {
+        var modal = document.getElementById("custom-alert");
+        var messageElement = document.getElementById("custom-alert-message");
+
+        modal.style.display = "block";
+        messageElement.innerHTML = message;
+
+        var okButton = document.getElementById("custom-alert-ok");
+        okButton.onclick = function () {
+          modal.style.display = "none";
+        };
+      }
+
+      function downloadResume() {
+        // var downloadLink = document.getElementById("resume-link");
+
+        var statusMessage = document.getElementById("download-status");
+        statusMessage.innerHTML = "Downloading...";
+
+        var resumeURL = "assets/HonnarajuResume_git.pdf"; // Replace with your resume file's URL
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", resumeURL, true);
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+          var a = document.createElement("a");
+          a.style.display = "none";
+          document.body.appendChild(a);
+          var blob = new Blob([xhr.response], { type: "application/pdf" });
+          var url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = "Honnaraju_Resume.pdf";
+          a.click();
+          window.URL.revokeObjectURL(url);
+
+          statusMessage.innerHTML = "";
+          customAlert("You have successfully download the resume!");
+          // window.alert("");
+        };
+
+        xhr.send();
+      }
+    </script>
   </body>
 </html>

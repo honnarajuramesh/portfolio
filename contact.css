@@ -1,0 +1,82 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; 
+    font-family:'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: bold;   
+}
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.glass{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to top,lightblue,lightgreen);
+    opacity: 0.5;
+}
+#form{
+   position: absolute;
+    display: flex;
+    flex-flow: column;
+    align-items: left;
+    height: 70vh;
+    width: 30vw;
+    border: px solid black;
+    margin: 5px 5px;
+    padding: 10px 10px;
+    background-image: linear-gradient(to top,lightblue,lightgreen);
+}
+.input{
+    margin : 10px;
+}
+#formName{
+    align-self: center;
+    
+}
+#submit{
+    margin-top: 5%;
+    margin-left: 27%;
+    padding:0% 5%;
+    align-self: center;
+    /* width: 30%; */
+    /* height:30px; */
+    font-size: large;
+    font-weight: bold;
+    background-image:linear-gradient(to right, lightblue,lightgreen)
+}
+#submit:hover{
+    opacity: 0.7;
+    cursor: pointer;
+    /* background-color: green; */
+}
+.textArea{
+    font-weight:bold;
+    height: 130%;
+    width: 70%;
+}
+p{
+    font-weight: normal;
+}
+
+.contactLanded{
+    position: absolute;
+}
+#result{
+    /* display: none; */
+    margin-bottom: 2%;
+    color:rgb(61, 33, 185);
+}
+#error{
+    color:red;
+}
